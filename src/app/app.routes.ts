@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { InicioComponent } from './home/inicio/inicio.component';
 import { LoginComponent } from './auth/login/login.component';
-import { LavadoComponent } from './components/lavado/lavado.component';
+import { LavadoComponent } from './features/lavado/lavado.component';
 
 export const routes: Routes = [
   {
