@@ -29,7 +29,7 @@ export class LoginComponent {
       console.log(data);
       if(data.usuario){
         Swal.fire('Login!', `Bienvenido ${data.usuario.nombre}`, 'success').then(()=>{
-          this.router.navigate(['lavado']);
+          this.router.navigate(['home']);
         })
       }else{
         Swal.fire('Error!', data.error.error, 'error')

@@ -1,33 +1,28 @@
-// src/app/navbar.component.ts
-import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
-  standalone: true,
   selector: 'app-navbar',
+  imports: [CommonModule],
   templateUrl: './navbar.component.html',
-  imports: [CommonModule]
+  styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
-  menuItems = [
-    { id: 'nosotros', label: 'Nosotros' },
-    { id: 'servicios', label: 'Servicios' },
-    { id: 'clientes', label: 'Clientes' },
-    { id: 'ubicacion', label: 'Ubicación' },
-    { id: 'contacto', label: 'Contáctenos' }
-  ];
+export class NavbarComponent implements OnInit {
 
-  activeSection: string = 'nosotros';
+  isAuthenticated = false;
+  userRole: string | null = null;
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const scrollPosition = window.scrollY + 100;
+  constructor(private router: Router, private authService: AuthService){}
 
-    for (let item of this.menuItems) {
-      const section = document.getElementById(item.id);
-      if (section && section.offsetTop <= scrollPosition) {
-        this.activeSection = item.id;
-      }
-    }
+  ngOnInit(): void {
+    this.isAuthenticated = this.authService.isAuthenticated();
+    this.userRole = localStorage.getItem('role');
   }
+
+  logout() {
+    this.authService.logout()
+  }
+
 }

@@ -1,16 +1,45 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#">Ti<span style="color: red;">Teams</span></a>
-    <ul class="navbar-nav ms-auto">
-      <li class="nav-item" *ngFor="let item of menuItems">
-        <a
-          class="nav-link"
-          [class.active]="activeSection === item.id"
-          [href]="'#' + item.id"
-        >
-          {{ item.label }}
-        </a>
-      </li>
-    </ul>
+    <!-- Logo -->
+    <ng-container>
+      <a class="navbar-brand d-flex align-items-center" href="home/admin">
+        <!-- <img src="/assets/icons/trkme.png" alt="TrackMe" class="logo me-2"> -->
+        <span class="fw-bold text-uppercase" style="font-size: 28px;">Aplicacion</span>
+      </a>
+    </ng-container>
+
+    <!-- Botón de menú para móviles -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menú de navegación -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav gap-3">
+        <!-- Menú para Usuarios -->
+        <ng-container>
+          <li class="nav-item"><a class="nav-link" href="home/users">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link text-success" href="home/users/request">Usuarios</a></li>
+          <li class="nav-item"><a class="nav-link" href="home/users/profile">Perfil</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-gear"></i> Configuraciones
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="home/profile">Perfil</a></li>
+              <li><a class="dropdown-item" href="home/myprojects">Proyectos</a></li>
+              <li><a class="dropdown-item" href="home/board">Comunicaciones</a></li>
+            </ul>
+          </li>
+        </ng-container>
+
+        <!-- Botones de sesión -->
+        <ng-container>
+          <li class="nav-item">
+            <button class="btn btn-danger ms-2" (click)="logout()">Cerrar Sesión</button>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
   </div>
 </nav>
