@@ -1,0 +1,59 @@
+<div class="container my-4">
+  <!-- Navegación de semanas -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <button class="btn btn-outline-primary" (click)="cambiarSemana(-1)" [disabled]="semanaActual === 0">← Semana anterior</button>
+    <h5>{{ rangoSemana }}</h5>
+    <button class="btn btn-outline-primary" (click)="cambiarSemana(1)">Semana siguiente →</button>
+  </div>
+
+  <!-- Vista para pantallas grandes -->
+  <div class="d-none d-md-block table-responsive">
+    <table class="table table-bordered text-center">
+      <thead class="table-light">
+        <tr>
+          <th>Hora</th>
+          <th *ngFor="let dia of dias">{{ getNombreDia(dia) }} {{ dia | date:'dd' }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hora of horas">
+          <td>{{ hora }}</td>
+          <td *ngFor="let dia of dias">
+            <ng-container *ngIf=" permitirDomingos || (dia.getDay() !== 0 && dia.getDay() !== 6); else bloqueDeshabilitado">
+              <button class="btn btn-sm w-100"
+                      [ngClass]="{'btn-success': esSeleccionado(dia, hora), 'btn-outline-secondary': !esSeleccionado(dia, hora)}"
+                      (click)="seleccionarBloque(dia, hora)">
+                Reservar
+              </button>
+            </ng-container>
+            <ng-template #bloqueDeshabilitado>
+              <div class="bg-danger bg-opacity-10 text-muted py-2 rounded">No disponible</div>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Vista para celulares -->
+  <div class="d-md-none">
+    <div *ngFor="let dia of dias" class="card mb-3 shadow-sm">
+      <div class="card-header bg-light text-center fw-bold">
+        {{ dia | date:'EEEE dd/MM' }}
+      </div>
+      <div class="card-body d-flex flex-wrap gap-2 justify-content-center">
+        <ng-container *ngIf="permitirSabados || permitirDomingos || (dia.getDay() !== 0 && dia.getDay() !== 6); else bloqueDeshabilitadoMovil">
+          <button *ngFor="let hora of horas"
+                  class="btn btn-sm"
+                  [ngClass]="{'btn-success': esSeleccionado(dia, hora), 'btn-outline-secondary': !esSeleccionado(dia, hora)}"
+                  (click)="seleccionarBloque(dia, hora)">
+            {{ hora }}
+          </button>
+        </ng-container>
+        <ng-template #bloqueDeshabilitadoMovil>
+          <div class="bg-danger bg-opacity-10 text-center text-muted p-2 rounded w-100">No disponible</div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

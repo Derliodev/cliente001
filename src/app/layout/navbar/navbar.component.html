@@ -1,1 +1,16 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">Ti<span style="color: red;">Teams</span></a>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item" *ngFor="let item of menuItems">
+        <a
+          class="nav-link"
+          [class.active]="activeSection === item.id"
+          [href]="'#' + item.id"
+        >
+          {{ item.label }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
